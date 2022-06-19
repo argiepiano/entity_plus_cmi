@@ -1,0 +1,9 @@
+name = Entity Plus CMI
+description = Extends Entity Plus to save configuration entities as CMI files.
+
+backdrop = 1.x
+type = module
+
+dependencies[] = entity_plus
+dependencies[] = entity_ui
+dependencies[] = entity_token

@@ -1,0 +1,39 @@
+<?php 
+
+/**
+ * @file
+ * Extends Entity Plus to handle configuration entities saved as CMI files.
+ */
+
+/** 
+* Implements hook_autoload_info().
+*/
+function entity_plus_cmi_autoload_info() {
+  return array(
+    'EntityPlusCmiEntity' => 'entity_plus_cmi.inc',
+    'EntityPlusCmiController' => 'entity_plus_cmi.inc',
+    'EntityPlusCmiUIController' => 'entity_plus_cmi.inc',
+  );
+}
+
+/** 
+ * Implements hook_config_info().
+ * 
+ * Creates config info for all entities that implement EntityPlusCmiInterface.
+ * This info allows for exporting the individual configuration entities through
+ * the Configuration manager.
+ */
+function entity_plus_cmi_config_info() {
+  $prefixes = array();
+  foreach (entity_get_info() as $entity_type => $info) {
+    if (!in_array('EntityPlusCmiInterface', class_implements($info['entity class']))) {
+      continue;
+    }
+    $prefixes[$entity_type] = array(
+      'name_key' => $info['entity keys']['name'],
+      'label_key' => $info['entity keys']['label'],
+      'group' => $info['label'],
+    );
+  } 
+  return $prefixes;
+}
