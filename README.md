@@ -1,6 +1,6 @@
 # Entity Plus CMI
 
-This module, intended for developers, provides tools to store configuration entities as CMI config json files. It extends the `Entity` and `EntityUIControlles` classes, and provides a custom entity controller. This module doesn't provide any use for end users - only for developers when working with custom entities.
+This module, intended for developers, provides tools to store configuration entities as CMI config json files. It extends the `Entity` and `EntityUIController` classes, and provides a custom entity controller. This module doesn't provide any use for end users - only for developers when working with custom entities.
 
 ## Backgroung information
 
