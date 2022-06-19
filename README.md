@@ -58,7 +58,7 @@ function MYMODULE_entity_info() {
     'fieldable' => FALSE,  // Like in Drupal 7, configuration entities are not fieldable (but they can have as many properties as you wish)
     'bundle of' => 'customer', // Since this configuration entity is a bundle definition for a content entity called `customer`, you need to specify it here. This will tell Field API that this configuration entity is used as a bundle definition for `customer`, and Field API will allow you to attach fields to the different bundles of `customer`.  
     'exportable' => TRUE, 
-    'configurable' => TRUE, // IMPORTANT! Without this, this API will break!!!
+    'configuration' => TRUE, // IMPORTANT! Without this, this API will break!!!
     'static cache' => TRUE, // This allows for static caching of these entities.
     'entity keys' => array( // This array specifies the machine names of the json file properties used as entity keys.
       'id' => 'id', // This will be ignored, but still needs to be provided, since it's required by Entity. CMI entities do not use numeric IDs.
