@@ -10,7 +10,7 @@ developers to access config files as Backdrop entities.
 Backdrop introduced json configuration files (CMI) as a way to save and retrieve configuration objects such as
 field and field instance definitions, content types (a.k.a. node bundles), taxonomy vocabularies, etc. In Drupal 7, 
 these configuration objects were saved in the database. With CMIs, Backdrop introduced the Configuration Manager, which allows for
-conviniently synchronizing, importing and exporting configurations through the UI. 
+conveniently synchronizing, importing and exporting configurations through the UI. 
 
 ### What are configuration entities?
 
