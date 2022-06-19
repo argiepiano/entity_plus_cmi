@@ -28,7 +28,7 @@ Backdrop contrib module Entity Plus provides the same functionality as Entity AP
 
 Enters Entity Plus CMI.
 
-This module does exactly that: it allows developers to store configuration entities as CMI json files. All this without losing the benefits of entities. You can still use entity metadata wrappers with these special CMI entities, and you can also use pretty much all API functions like `entity_load` and `entity_create` with these CMI entities, effectively bypassing the Config API (this module wraps many of the Config API functions). 
+This module does exactly that: it allows developers to store configuration entities as CMI json files. All this without losing the benefits of entities. You can still use entity metadata wrappers with these special CMI entities, and you can also use pretty much all API functions like `entity_load` and `entity_create` with these CMI entities, without dealing directly with Config API functions (this module wraps many of the Config API functions). 
 
 Additionally, Entity Plus allows you to create metadata for the "properties" of these entities by implementing `hook_entity_property_info()`. This will allow you to use `entity_view()` to display the values stored in the config file as if they were fields of a normal entity.
 
