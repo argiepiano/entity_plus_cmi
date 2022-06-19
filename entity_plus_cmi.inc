@@ -1,6 +1,11 @@
 <?php 
-interface EntityPlusCmiInterface extends EntityInterface {
 
+/**
+ * @file
+ * Defines entity and controller classes for CMI configuration entities.
+ */
+
+interface EntityPlusCmiInterface extends EntityInterface {
    /**
    * Set value for a property.
    * 
@@ -19,9 +24,11 @@ interface EntityPlusCmiInterface extends EntityInterface {
    *   The name of the property to get.
    */
   public function getProperty($property);
-
 }
 
+/** 
+ * Entity class for CMI configuration entities.
+ */
 class EntityPlusCmiEntity extends Entity implements EntityPlusCmiInterface {
  
   protected $entityType;
@@ -86,6 +93,9 @@ class EntityPlusCmiEntity extends Entity implements EntityPlusCmiInterface {
 
   /**
    * Override EntityInterface.
+   * 
+   * This method should be overridden if you want to provide a uri to view this
+   * config entity.
    */
   public  function uri() {}
 
@@ -518,56 +528,3 @@ class EntityPlusCmiUIController extends EntityDefaultUIController {
     return $render;
   }
 }
-
-// class EntityDefaultMetadataCmiController extends EntityDefaultMetadataController {
-
-//   /** 
-//    * A property schema object whose properties are the names of the properties
-//    * as stored in the config file. Each property is an array with the following
-//    * keys:
-//    *   - name: The machine name of the property.
-//    *   - type: The property type, as defined by the entity metadata wrapper. 
-//    *       @see https://www.drupal.org/docs/7/api/entity-api/data-types
-//    *   - label: the human label of the property. 
-//    *   - description (optional): The description of the property. If not provided
-//    *      the class will provide a default a description.
-//    */
-//   protected $propertySchema;
-
-//   /** 
-//    * Override.
-//    */
-//   function __construct($type) {
-//     parent::__construct($type);
-//     // Load the property schema if available.
-//     if (!empty($this->info['property schema file'])) {
-//       $schema_file =  $this->info['property schema file']['file'];
-//       $path = !empty($this->info['property schema file']['path']) ? $this->info['property schema file']['path'] : (!empty($this->info['module']) ? backdrop_get_path('module', $this->info['module']) : NULL); 
-//       if ($path) {
-//         $this->propertySchema = json_decode(file_get_contents($path . '/' . $schema_file . '.json'));
-//       }
-//     }
-//   }
-//   /**
-//    * Override EntityDefaultMetadataController.
-//    */
-//   public function entityPropertyInfo() {
-
-//     $entity_label = backdrop_strtolower($this->info['label']);
-
-//     // Provide defaults based on the schema.
-//     $info = array();
-//     $properties = array();
-
-//     foreach ($this->propertySchema as $name => $property_info) {
-//       $properties[$name] = array(
-//         'type' => !empty($property_info->type) ? $property_info->type : 'text',
-//         'label' => isset($property_info->label) ? ucfirst($property_info->label) : ucfirst($property_info->name),
-//         'description' => isset($property_info->description) ?$property_info->description : t('@entity @property property.', array('@entity' => $entity_label, '@property' => $property_info->label)),
-//       );
-//     }
-//     $info['properties'] = $properties;
-//     return array($this->type => $info);
-//   }
-
-// }
