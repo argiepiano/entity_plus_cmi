@@ -20,7 +20,7 @@ For example, with Entity API, you could create a custom entity type called `cost
 
 These configuration entities (i.e. instances of `customer_type`) were stored in the database.
 
-Other contrib modules used these database-stored configuration entity functionality. One of the most glaring examples is Rules: it stored all rules as configuration entities in the database. 
+Other contrib modules used this database-stored configuration entity functionality. One of the most glaring examples is Rules: it stored all rules as configuration entities in the database. 
 
 ### Entity Plus CMI and configuration entities.
 
