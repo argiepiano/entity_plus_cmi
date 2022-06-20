@@ -15,7 +15,7 @@ conveniently synchronizing, importing and exporting configurations through the U
 
 In Drupal 7, the contrib module Entity API allowed developers to define configuration or exportable custom entities. These configuration entities allowed developers to define bundles for custom entities - they were the equivalent version of content types (bundle definitions) and other types of configuration entities. 
 
-For example, with Entity API, you could create a custom entity type called `costumer` and a configuration entity called `costumer_type` that allowed you to create different bundles of `costumer` entities, such as `domestic_customer` or `foreign_customer`.
+For example, with Entity API, you could create a custom entity type called `customer` and a configuration entity called `customer_type` that allowed you to create different bundles of `customer` entities, such as `domestic_customer` or `foreign_customer`.
 
 These configuration entities (i.e. instances of `customer_type`) were stored in the database.
 
