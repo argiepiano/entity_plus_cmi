@@ -276,6 +276,8 @@ class EntityPlusCmiController extends DefaultEntityController implements EntityC
       // Preload $entity->original by name key if necessary.
       if (empty($entity->is_new)) {
         if (!isset($entity->original)) {
+          // Remove the entity from the static cache.
+          unset($this->entityCache[$entity->id()]);
           $original = $this->load(array($entity->{$this->nameKey}));
           $original = reset($original);
         } 
@@ -308,7 +310,8 @@ class EntityPlusCmiController extends DefaultEntityController implements EntityC
         }
       }
       // Save the config file.
-      $return = $config->save();
+      $config->save();
+      $return = $is_new ? SAVED_NEW : SAVED_UPDATED;
 
       // Prepare the entity for hooks.
       if (isset($original)) {
