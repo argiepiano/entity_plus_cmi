@@ -47,7 +47,10 @@ class EntityPlusCmiEntity extends Entity implements EntityPlusCmiInterface {
     $this->statusKey = isset($this->entityInfo['entity keys']['status']) ? $this->entityInfo['entity keys']['status'] : 'status';
     $this->labelKey = isset($this->entityInfo['entity keys']['label']) ? $this->entityInfo['entity keys']['label'] : 'label';
     $this->moduleKey = isset($this->entityInfo['entity keys']['module']) ? $this->entityInfo['entity keys']['module'] : 'module';
-    $this->defaultValues();
+    $this->{$this->statusKey} = ENTITY_CUSTOM;
+    $this->{$this->moduleKey} = isset($this->entityInfo['module']) ? $this->entityInfo['module'] : $this->entityType;
+    $this->{$this->labelKey} = '';
+    $config_values += $this->defaultValues();
     parent::__construct($config_values);
   }
 
@@ -68,11 +71,12 @@ class EntityPlusCmiEntity extends Entity implements EntityPlusCmiInterface {
    * These defaults can be overriden by children entity classes. However, these
    * entities should always have at least a 'name' key, a 'module' key, a 
    * 'status' key and a 'label' key.   
+   * 
+   * @return array
+   *  An array of default values keyed by property name.
    */
   function defaultValues() {
-    $this->{$this->statusKey} = ENTITY_CUSTOM;
-    $this->{$this->moduleKey} = isset($this->entityInfo['module']) ? $this->entityInfo['module'] : $this->entityType;
-    $this->{$this->labelKey} = 'label';
+    return array();
   }
 
   /**
@@ -136,7 +140,7 @@ class EntityPlusCmiEntity extends Entity implements EntityPlusCmiInterface {
    * Save the entity.
    */
   public function save() {
-    return entity_get_controller($this->entityType)->save($this);
+    return entity_get_controller($this->entityType())->save($this);
   }
 }
 
