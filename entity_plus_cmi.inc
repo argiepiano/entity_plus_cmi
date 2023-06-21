@@ -363,10 +363,18 @@ class EntityPlusCmiController extends DefaultEntityController implements EntityC
    *   The Config object associated with the entity.
    */
   public function delete(array $names) {
+    $entities = $this->load($names);
+    if (empty($entities)) {
+      // Do nothing if there are no entities to delete.
+      return;
+    }
     foreach ($names as $name) {
       $file_name = $this->entityType . '.' . $name;
       $config = config($file_name);
       return $config->delete();
+    }
+    foreach ($entities as $entity) {
+      $this->invoke('delete', $entity);
     }
   }
 
