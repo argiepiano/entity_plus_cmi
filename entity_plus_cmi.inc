@@ -519,9 +519,7 @@ class EntityPlusCmiUIController extends EntityDefaultUIController {
    * Overrides EntityDefaultUIControler.
    */
   public function overviewTable($conditions = array()) {
-   
-    $ids = array();
-
+    $names = array();
     foreach ( config_get_names_with_prefix($this->entityType . '.') as $file_name) {
       $names[] = str_replace($this->entityType . '.', '', $file_name);
     }
