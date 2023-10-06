@@ -303,8 +303,20 @@ class EntityPlusCmiController extends DefaultEntityController implements EntityC
       unset($entity->is_active_revision);
 
       $config = config($file_name);
-      foreach ($entity as $key => $value) {
-        $config->set($key, $value); 
+
+      // Set the required properties, even if they are not defined in
+      // hook_entity_property_info(). These are common to all types.
+      $config->set($this->statusKey, $entity->{$this->statusKey});
+      $config->set($this->nameKey, $entity->{$this->nameKey});
+      $config->set($this->moduleKey, $entity->{$this->moduleKey});
+
+      // Get the list of defined properties. All properties must be defined
+      // by implements hook_entity_property_info(). 
+      $properties = entity_plus_get_property_info($this->entityType);
+      foreach ($properties['properties'] as $property_name => $property) {
+        if (isset($entity->$property_name)) {
+          $config->set($property_name, $entity->$property_name); 
+        }
       }
 
       // Remove deleted properties.
