@@ -35,6 +35,10 @@ But there is more! You can also access values of the CMI configuration entity vi
 
 (Of course, there are some limitations).
 
+## About version 2 of the module.
+
+Version 2 of the module makes use of the entity properties defined in `hook_entity_property_info()` to decide which properties of the entity will be saved to config. By default, the required properties defined in `hook_entity_info()` under `['entity keys]['name']`, `['entity keys]['label']`, `['entity keys]['module']` and `['entity keys]['status']` will be saved. Any other properties will not be saved to config unless they are defined in `hook_entity_property_info()`. This mimics the behavior of database entities, where `hook_schema()` determines which properties of the entity will be saved to columns in the entity table. 
+
 ## Installation
 
 - Install this module using the [official Backdrop CMS instructions](https://backdropcms.org/guide/modules)
@@ -101,6 +105,8 @@ NOTE: the name of the file for the json above will be `customer_type.foreign_cus
 
 
 2. Define the entity properties. These are in some way "pseudo fields" and take the place of hook_schema() in defining each of the properties of an entity. Notice that `type` corresponds to the data types defined for Entity Metadata Wrappers. See https://www.drupal.org/docs/7/api/entity-api/data-types
+
+**Important**: in version 2 of the module, only the properties defined under this hook will be saved to config when the entity is saved! Any properties NOT defined here will be ignored and not saved. 
 
 ```php
 function MYMODULE_entity_property_info_alter(&$info) {
