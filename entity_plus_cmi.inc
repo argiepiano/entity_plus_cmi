@@ -212,12 +212,10 @@ class EntityPlusCmiController extends DefaultEntityController implements EntityC
       }
     }
 
-    $entities += $retrieved_entities;
-
-    // Exclude any entities if they don't match $conditions.
-    // This ensures the same behavior whether loading from memory or database.
+    // Exclude any retrieved entities if they don't match $conditions.
+    // This ensures the same behavior whether loading from memory or disk.
     if ($conditions) {
-      foreach ($retrieved_entities as $entity) {
+      foreach ($retrieved_entities as $name => $entity) {
         // Iterate over all conditions and compare them to the entity
         // properties. We cannot use array_diff_assoc() here since the
         // conditions can be nested arrays, too.
@@ -227,16 +225,23 @@ class EntityPlusCmiController extends DefaultEntityController implements EntityC
             // operation: only if the value is not at all in the condition array
             // we remove the entity.
             if (!in_array($entity->{$property_name}, $condition)) {
-              unset($entities[$entity->{$this->nameKey}]);
+              unset($retrieved_entities[$name]);
               continue 2;
             }
           }
           elseif ($condition != $entity->{$property_name}) {
-            unset($entities[$entity->{$this->nameKey}]);
+            unset($retrieved_entities[$name]);
             continue 2;
           }
         }
       }
+    }
+
+    // Pass all entities retrieved from disk through $this->attachLoad(),
+    // which calls the entity type load callback.
+    if (!empty($retrieved_entities)) {
+      $this->attachLoad($retrieved_entities);
+      $entities += $retrieved_entities;
     }
 
     if ($this->staticCache) {
