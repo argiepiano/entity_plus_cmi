@@ -172,7 +172,8 @@ class EntityPlusCmiController extends EntityPlusControllerExportable implements 
   public function load($names = array(), $conditions = array()) {
     $entities = array();
 
-    if (empty($names)) {
+    // If $names is FALSE get the names of all config files for the entity type.
+    if ($names === FALSE) {
       $names = $this->getAllNames();
     }
 
@@ -182,6 +183,7 @@ class EntityPlusCmiController extends EntityPlusControllerExportable implements 
       $names = array_keys(array_diff_key(array_flip($names), $entities));
     }
 
+    // Load any remaining entities from config.
     $retrieved_entities = array();
     foreach ($names as $name) {
       $file_name = $this->getFileName($name);
