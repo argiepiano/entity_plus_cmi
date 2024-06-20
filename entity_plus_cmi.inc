@@ -197,18 +197,20 @@ class EntityPlusCmiController extends EntityPlusControllerExportable implements 
     // Exclude any retrieved entities if they don't match $conditions. Unlike
     // entities stored in the DB, we must run applyConditions() to prune out
     // entities that don't match the conditions.
-    $retrieved_entities = $this->applyConditions($retrieved_entities, $conditions);
+    if (!empty($retrieved_entities)) {
+      $retrieved_entities = $this->applyConditions($retrieved_entities, $conditions);
+    }
 
     // Pass all entities retrieved from disk through $this->attachLoad(),
     // which calls the entity type load callback.
+    // We use if again because applyConditions above modifies $retrieved_entities.
     if (!empty($retrieved_entities)) {
       $this->attachLoad($retrieved_entities);
       $entities += $retrieved_entities;
-    }
-
-    if ($this->staticCache) {
-      // Add entities to the cache.
-        $this->cacheSet($retrieved_entities);
+      if ($this->staticCache) {
+        // Add entities to the cache.
+          $this->cacheSet($retrieved_entities);
+      }
     }
 
     return $entities;
