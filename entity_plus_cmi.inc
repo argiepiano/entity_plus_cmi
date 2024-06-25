@@ -306,7 +306,7 @@ class EntityPlusCmiController extends EntityPlusControllerExportable implements 
 
       // If the machine name has changed for an existing entity, delete the 
       // old configuration file.
-      if (isset($entity->original) && $entity->original->{$this->nameKey} != $entity->{$this->nameKey}) {
+      if (!empty($entity->original) && $entity->original->{$this->nameKey} != $entity->{$this->nameKey}) {
         config($this->entityType . '.' . $entity->original->{$this->nameKey})->delete();
       }
 
