@@ -342,10 +342,22 @@ class EntityPlusCmiController extends EntityPlusControllerExportable implements 
     foreach ($names as $name) {
       $file_name = $this->getFileName($name);
       $config = config($file_name);
-      return $config->delete();
+      $config->delete();
+      if ($this->staticCache) {
+        // Remove the deleted entity from the static cache.
+        unset($this->entityCache[$name]);
+      }
     }
+
     foreach ($entities as $entity) {
       $this->invoke('delete', $entity);
+    }
+
+    foreach ($entities as $entity) {
+      if (entity_plus_has_status($this->entityType, $entity, ENTITY_PLUS_IN_CODE)) {
+        entity_plus_defaults_rebuild(array($this->entityType));
+        break;
+      }
     }
   }
 
